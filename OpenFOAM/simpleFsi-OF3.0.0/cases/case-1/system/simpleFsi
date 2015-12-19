@@ -1,0 +1,25 @@
+simpleFsi1
+{
+    type        simpleFsi;
+    
+    functionObjectLibs ( "libsimpleFsiFunctionObject.so" );
+        
+    outputControl   timeStep;
+    timeInterval    1;
+    
+    log         yes;
+    
+    patches     ( cylinder );
+    rhoName     rhoInf;      // Indicates incompressible
+    rhoInf      1000;           // Redundant for incompressible
+    CofR	(0 0 0);
+    
+    //FSI
+    
+    M		2.550;
+    K		200.0;
+    C		0.9;
+    R		93.75;
+    results	"yD.csv";
+}
+
