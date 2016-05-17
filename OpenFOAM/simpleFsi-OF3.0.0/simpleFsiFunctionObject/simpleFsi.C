@@ -67,6 +67,7 @@ Foam::simpleFsi::simpleFsi
     C_(0.0),
     K_(0.0),
     R_(0.0),
+    Ymax_(0.0),
     Y_ (0.0, 0.0),
     Yold_(0.0, 0.0),
     yD_(NULL)
@@ -79,6 +80,8 @@ Foam::simpleFsi::simpleFsi
             dict.lookup("results")
         )
     );
+    
+    yD_() << "Time;Y;Vy;Fy" << endl;
 }
 
 
@@ -111,6 +114,7 @@ Foam::simpleFsi::simpleFsi
     C_(0.0),
     K_(0.0),
     R_(0.0),
+    Ymax_(0.0),
     Y_ (0.0, 0.0),
     Yold_(0.0, 0.0),
     yD_(NULL)
@@ -137,6 +141,8 @@ void Foam::simpleFsi::read(const dictionary& dict)
     dict.lookup("K") >> K_;
     
     dict.lookup("R") >> R_;
+    
+    dict.lookup("Ymax") >> Ymax_;
 }
 
 void Foam::simpleFsi::write()
@@ -149,10 +155,10 @@ void Foam::simpleFsi::write()
 
     forces::write();
 
-    volScalarField& yDispl = 
-	const_cast<volScalarField&>
+    volVectorField& yDispl = 
+	const_cast<volVectorField&>
 	(
-	    obr_.lookupObject<volScalarField>("cellDisplacementy")
+	    obr_.lookupObject<volVectorField>("cellDisplacement")
 	);
 
     if (Pstream::master())
@@ -172,13 +178,19 @@ void Foam::simpleFsi::write()
 	Y_.first() = Yold_.first() + dt*Ymid.second();
 	Y_.second()= Yold_.second() + dt/ M_ * (-C_*Ymid.second() - K_*Ymid.first() + R_*yForce);
 	
+	if (mag(Y_.first()) >= Ymax_)
+	{
+	    Y_.first() = sign(Y_.first())*Ymax_;
+	    Y_.second() = (Y_.first() - Yold_.first()) / dt;
+	}
+	
 	Yold_ = Y_;
 	
 	Info << "yForce = " << yForce << endl;
 	Info << "Y= " << Y_.first() << endl;
 	Info << "Vy= " << Y_.second() << endl;
 	
-	yD_() << ct << ";" << Y_.first() << ";" << Y_.second() << endl;
+	yD_() << ct << ";" << Y_.first() << ";" << Y_.second() << ";" << yForce << endl;
 	
 	if (Pstream::parRun())
 	{
@@ -195,12 +207,14 @@ void Foam::simpleFsi::write()
 		        UPstream::msgType(), UPstream::worldComm);
     }
     
+    vector YPatch (0.0, Y_.first(), 0.0);
+    
     forAllConstIter(labelHashSet, patchSet_, iter)
     {
 	label patchId = iter.key();
 	forAll(yDispl.boundaryField()[patchId], faceI)
 	{
-	    yDispl.boundaryField()[patchId][faceI] = Y_.first();
+	    yDispl.boundaryField()[patchId][faceI] = YPatch;
 	}
     }
 }

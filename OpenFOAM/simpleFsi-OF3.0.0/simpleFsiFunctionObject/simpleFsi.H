@@ -28,9 +28,10 @@ Group
     grpsimpleFsiFunctionObjects
 
 Description
+    
 
 SeeAlso
-
+    
 
 SourceFiles
 
@@ -85,6 +86,9 @@ protected:
         
         //- ratio of real cylinder length to depth of domain
         scalar R_;
+        
+        //-
+        scalar Ymax_;
         
         //- current state of system (y,Vy)
         Pair<scalar> Y_; 
