@@ -20,6 +20,9 @@ do
     fi
 done
 
+#
+# Go up
+#
 cd ../
 
 #
