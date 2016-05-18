@@ -1,0 +1,5 @@
+Curle/SoundObserver.C
+Curle/Curle.C
+Curle/CurleFunctionObject.C
+
+LIB = $(FOAM_USER_LIBBIN)/libAcoustics
