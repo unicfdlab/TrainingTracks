@@ -1,0 +1,26 @@
+weaklyCoupledFsi1
+{
+    type        weaklyCoupledFsi;
+    
+    functionObjectLibs ( "libweaklyCoupledFsiFunctionObject.so" );
+        
+    outputControl   timeStep;
+    timeInterval    1; // must be 1
+    
+    log         yes;
+    
+    patches     ( cylinder );
+    rhoName     rhoInf;      // Indicates incompressible
+    rhoInf      1000;        // Redundant for incompressible
+    CofR        (0 0 0);     // Point for torque computation 
+    
+    //FSI
+    M		7.144575; //mass without water
+    K		639.032;
+    C		0.94597;
+    R		282;
+    results	"yD.csv";
+    Ymax	1.0; // Almost unbounded
+    append      true;
+}
+

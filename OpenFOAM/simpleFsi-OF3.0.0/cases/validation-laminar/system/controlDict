@@ -23,7 +23,7 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         30;
+endTime         8.2; //30;
 
 deltaT          5e-06;
 
@@ -51,7 +51,7 @@ maxCo           0.5;
 
 functions
 {
-    #include "simpleFsi"
+    #include "basicFsi"
 }
 
 // ************************************************************************* //

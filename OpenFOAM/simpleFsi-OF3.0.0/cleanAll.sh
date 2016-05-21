@@ -2,7 +2,14 @@
 
 #clean sources
 echo "Cleaning sources..."
-cd simpleFsiFunctionObject; wclean; cd ../
+#cd simpleFsiFunctionObject; wclean; cd ../
+cd src
+
+cd helloWorldFunctionObject; wclean; cd ../
+cd basicFsiFunctionObject; wclean; cd ../
+cd weaklyCoupledFsiFunctionObject; wclean; cd ../
+
+cd ../
 
 #clean cases
 cd cases

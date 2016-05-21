@@ -86,7 +86,7 @@ solvers
 	$UFinal;
     }
 
-    "(cellMotionUy|cellDisplacement)"
+    cellDisplacement
     {
         solver          PCG;
         tolerance       1e-06;

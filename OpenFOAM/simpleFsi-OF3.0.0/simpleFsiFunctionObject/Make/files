@@ -1,4 +1,0 @@
-simpleFsi.C
-simpleFsiFunctionObject.C 
-
-LIB = $(FOAM_USER_LIBBIN)/libsimpleFsiFunctionObject

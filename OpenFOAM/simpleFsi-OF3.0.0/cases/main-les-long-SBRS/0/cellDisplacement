@@ -28,12 +28,12 @@ boundaryField
     
     inlet
     {
-        type            zeroGradient;
+        type            slip;
     }
     
     outlet
     {
-        type            zeroGradient;
+        type            slip;
     }
     
     channel

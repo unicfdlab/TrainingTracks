@@ -1,0 +1,4 @@
+helloWorld.C
+helloWorldFunctionObject.C 
+
+LIB = $(FOAM_USER_LIBBIN)/libhelloWorldFunctionObject
