@@ -1,6 +1,6 @@
 CurleAnalogy1
 {
-	functionObjectLibs ("libAcousticsDev.so");
+	functionObjectLibs ("libAcoustics.so");
 	
 	type		Curle;
 	
