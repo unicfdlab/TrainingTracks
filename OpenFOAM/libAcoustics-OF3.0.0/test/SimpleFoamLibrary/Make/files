@@ -1,0 +1,6 @@
+simpleFoamLibrary.C
+newSimpleFoamLibrary.C
+altSimpleFoamLibrary/altSimpleFoamLibrary.C
+
+
+LIB = $(FOAM_USER_LIBBIN)/libsimpleFoamLibrary
