@@ -26,8 +26,6 @@ License
 #include "SoundObserver.H"
 #include "mathematicalConstants.H"
 
-//noise stuff
-#include "noiseFFTDriver.H"
 #include "IFstream.H"
 #include "DynamicList.H"
 #include "fft.H"
