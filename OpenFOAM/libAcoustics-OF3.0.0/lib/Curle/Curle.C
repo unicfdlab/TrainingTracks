@@ -29,7 +29,6 @@ License
 #include "Time.H"
 #include "wordReList.H"
 
-//#include "singlePhaseTransportModel.H"
 #include "RASModel.H"
 #include "LESModel.H"
 
@@ -43,80 +42,6 @@ namespace Foam
 
 }
 // * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * * //
-
-//Foam::tmp<Foam::volSymmTensorField> Foam::Curle::devRhoReff() const
-//{
-//    if (obr_.foundObject<compressible::RASModel>("RASProperties"))
-//    {
-//        const compressible::RASModel& ras
-//            = obr_.lookupObject<compressible::RASModel>("RASProperties");
-//
-//        return ras.devRhoReff();
-//    }
-//    else if (obr_.foundObject<incompressible::RASModel>("RASProperties"))
-//    {
-//        const incompressible::RASModel& ras
-//            = obr_.lookupObject<incompressible::RASModel>("RASProperties");
-//
-//        return rho()*ras.devReff();
-//    }
-//    else if (obr_.foundObject<compressible::LESModel>("LESProperties"))
-//    {
-//        const compressible::LESModel& les =
-//        obr_.lookupObject<compressible::LESModel>("LESProperties");
-//
-//        return les.devRhoBeff();
-//    }
-//    else if (obr_.foundObject<incompressible::LESModel>("LESProperties"))
-//    {
-//        const incompressible::LESModel& les
-//            = obr_.lookupObject<incompressible::LESModel>("LESProperties");
-//
-//        return rho()*les.devBeff();
-//    }
-//    else if (obr_.foundObject<basicThermo>("thermophysicalProperties"))
-//    {
-//        const basicThermo& thermo =
-//             obr_.lookupObject<basicThermo>("thermophysicalProperties");
-//
-//        const volVectorField& U = obr_.lookupObject<volVectorField>(UName_);
-//
-//        return -thermo.mu()*dev(twoSymm(fvc::grad(U)));
-//    }
-//    else if
-//    (
-//        obr_.foundObject<singlePhaseTransportModel>("transportProperties")
-//    )
-//    {
-//        const singlePhaseTransportModel& laminarT =
-//            obr_.lookupObject<singlePhaseTransportModel>
-//            ("transportProperties");
-//
-//        const volVectorField& U = obr_.lookupObject<volVectorField>(UName_);
-//
-//        return -rho()*laminarT.nu()*dev(twoSymm(fvc::grad(U)));
-//    }
-//    else if (obr_.foundObject<dictionary>("transportProperties"))
-//    {
-//        const dictionary& transportProperties =
-//             obr_.lookupObject<dictionary>("transportProperties");
-//
-//        dimensionedScalar nu(transportProperties.lookup("nu"));
-//
-//        const volVectorField& U = obr_.lookupObject<volVectorField>(UName_);
-//
-//        return -rho()*nu*dev(twoSymm(fvc::grad(U)));
-//    }
-//    else
-//    {
-//        FatalErrorIn("Curle::devRhoReff()")
-//            << "No valid model for viscous stress calculation."
-//            << exit(FatalError);
-//
-//        return volSymmTensorField::null();
-//    }
-//}
-
 
 Foam::tmp<Foam::scalarField> Foam::Curle::normalStress(const word& patchName) const
 {
@@ -155,38 +80,6 @@ Foam::tmp<Foam::scalarField> Foam::Curle::normalStress(const word& patchName) co
     );
 }
 
-//Foam::tmp<Foam::volScalarField> Foam::Curle::rho(const volScalarField& p) const
-//{
-//    if (p.dimensions() == dimPressure)
-//    {
-//	if (rhoRef
-//    
-//    
-//    
-//	return(obr_.lookupObject<volScalarField>(rhoName_));
-//    }
-//    else
-//    {
-//	const fvMesh& mesh = refCast<const fvMesh>(obr_);
-//
-//	return tmp<volScalarField>
-//	(
-//	    new volScalarField
-//	    (
-//		IOobject
-//		(
-//		    "rho",
-//		    mesh.time().timeName(),
-//		    mesh
-//		),
-//		mesh,
-//		dimensionedScalar("rho", dimDensity, rhoRef_)
-//            )
-//        );
-//    }
-//}
-
-
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
 Foam::Curle::Curle
@@ -215,9 +108,7 @@ Foam::Curle::Curle
     CurleFilePtr_(NULL),
     FOldPtr_(NULL),
     FOldOldPtr_(NULL),
-    probeI_(0),
-//noiseFFT stuff
-    graphFormat_("raw")
+    probeI_(0)
 {
     // Check if the available mesh is an fvMesh otherise deactivate
     if (!isA<fvMesh>(obr_))
@@ -243,7 +134,6 @@ Foam::Curle::Curle
 
 Foam::Curle::~Curle()
 {}
-
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
@@ -284,9 +174,6 @@ void Foam::Curle::read(const dictionary& dict)
     
     dict.lookup("rhoRef") >> rhoRef_;
 
-//noiseFFT    
-//    dict.lookup("graphFormat") >> graphFormat_;
-
     //read observers
     {
 	const dictionary& obsDict = dict.subDict("observers");
@@ -314,44 +201,7 @@ void Foam::Curle::read(const dictionary& dict)
 	}
     }
     
-    calcDistances();
-    
-//            UName_ = dict.lookupOrDefault<word>("UName", "U");
-//            rhoName_ = dict.lookupOrDefault<word>("rhoName", "rho");
-//
-//            // Check whether UName, pName and rhoName exists,
-//            // if not deactivate Curle
-//            if
-//            (
-//                !obr_.foundObject<volVectorField>(UName_)
-//             || !obr_.foundObject<volScalarField>(pName_)
-//             || (
-//                    rhoName_ != "rhoInf"
-//                 && !obr_.foundObject<volScalarField>(rhoName_)
-//                )
-//            )
-//            {
-//                active_ = false;
-//
-//                WarningIn("void Curle::read(const dictionary&)")
-//                    << "Could not find " << UName_ << ", " << pName_;
-//
-//                if (rhoName_ != "rhoInf")
-//                {
-//                    Info<< " or " << rhoName_;
-//                }
-//
-//                Info<< " in database." << nl
-//                    << "    De-activating Curle." << endl;
-//            }
-//
-//            // Reference density needed for incompressible calculations
-//            rhoRef_ = readScalar(dict.lookup("rhoInf"));
-//
-//            // Reference pressure, 0 by default
-//            pRef_ = dict.lookupOrDefault<scalar>("pRef", 0.0);
-//        }
-//
+    calcDistances();   
 }
 
 void Foam::Curle::correct()
@@ -443,7 +293,6 @@ void Foam::Curle::correct()
 
 void Foam::Curle::makeFile()
 {
-
     fileName CurleDir;
 
     if (Pstream::master() && Pstream::parRun())
@@ -459,7 +308,6 @@ void Foam::Curle::makeFile()
     else
     {
     }
-
     // File update
     if (Pstream::master() || !Pstream::parRun())
     {
@@ -642,12 +490,10 @@ void Foam::Curle::execute()
     }
 }
 
-
 void Foam::Curle::end()
 {
     // Do nothing - only valid on execute
 }
-
 
 void Foam::Curle::timeSet()
 {
@@ -658,7 +504,5 @@ void Foam::Curle::write()
 {
     // Do nothing - only valid on execute
 }
-
-
 
 // ************************************************************************* //
