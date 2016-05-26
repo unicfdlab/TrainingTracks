@@ -1,0 +1,159 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.6                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     pisoFoam;
+
+startFrom       latestTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         1.5;
+
+deltaT          0.25e-5;
+
+writeControl    timeStep;
+
+writeInterval   1000;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  6;
+
+writeCompression compressed;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable yes;
+
+functions
+{
+
+    WallCoeffsCyl1
+    {
+	type forceCoeffs;
+        functionObjectLibs ("libforces.so");
+        patches (cyl-1); //change to your patch name
+
+	// Name of fields
+        pName p;
+        Uname U;
+
+        // Dump to file
+        log true;
+        rhoName rhoInf;
+        rhoInf 1.2;
+        CofR (-0.1 0 0);
+        liftDir (0 1 0);
+        dragDir (1 0 0);
+        pitchAxis (0 0 1);
+        magUInf 40.0;
+        lRef 0.01;
+	Aref 0.627e-7;
+        outputControl timeStep;
+        outputInterval 10;
+    }
+
+    WallCoeffsCyl2
+    {
+	type forceCoeffs;
+        functionObjectLibs ("libforces.so");
+        patches (cyl-2); //change to your patch name
+
+	// Name of fields
+        pName p;
+        Uname U;
+
+        // Dump to file
+        log true;
+        rhoName rhoInf;
+        rhoInf 1.2;
+        CofR (-0.1 0 0);
+        liftDir (0 1 0);
+        dragDir (1 0 0);
+        pitchAxis (0 0 1);
+        magUInf 40.0;
+        lRef 0.01;
+	Aref 0.627e-7;
+        outputControl timeStep;
+        outputInterval 10;
+    }
+                                                                                                                                                                    
+
+    CurleAnalogy1
+    {
+	functionObjectLibs ("libAcoustics.so");
+	
+	type		Curle;
+	
+	log		true;
+	
+	probeFrequency	4;
+	
+	patchNames	(cyl-1 cyl-2);
+	
+	order           second;
+	
+	timeStart	0.1;
+	
+	timeEnd		0.7;
+	
+	c0		340;
+	
+	dRef		1e-6;
+	
+	pName		p;
+	
+	rhoName		none;
+	
+	rhoRef		1.2;
+	
+	farField        true;
+	nearField       true;
+	
+	observers
+	{
+	    microphone-A
+	    {
+		position	(-0.5223 1.7441 0.5e-6);
+		pRef		2.0e-5;
+		fftFreq		1024;
+	    }
+
+	    microphone-B
+	    {
+		position	(0.5710 2.032 0.5e-6);
+		pRef		2.0e-5;
+		fftFreq		1024;
+	    }
+	
+	    microphone-C
+	    {
+		position	(1.664 2.032 0.5e-6);
+		pRef		2.0e-5;
+		fftFreq		1024;
+	    }
+	}
+    }
+}
+
+// ************************************************************************* //
