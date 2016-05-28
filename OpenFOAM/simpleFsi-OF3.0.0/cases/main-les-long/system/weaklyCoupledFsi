@@ -17,7 +17,7 @@ weaklyCoupledFsi1
     //FSI
     M		22.832; //mass without water
     K		1297.97;
-    C		0;
+    C		6.89;
     R		282;
     results	"yD.csv";
     Ymax	1.0; //Unbounded
