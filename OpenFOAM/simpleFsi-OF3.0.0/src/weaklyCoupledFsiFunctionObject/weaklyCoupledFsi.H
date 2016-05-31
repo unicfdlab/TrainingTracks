@@ -41,18 +41,10 @@ SourceFiles
 #ifndef weaklyCoupledFsi_H
 #define weaklyCoupledFsi_H
 
-#include "functionObjectFile.H"
 #include "forces.H"
-
-#include "coordinateSystem.H"
-#include "coordinateSystems.H"
-#include "primitiveFieldsFwd.H"
 #include "volFieldsFwd.H"
-#include "HashSet.H"
 #include "Tuple2.H"
 #include "OFstream.H"
-#include "Switch.H"
-#include "writer.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

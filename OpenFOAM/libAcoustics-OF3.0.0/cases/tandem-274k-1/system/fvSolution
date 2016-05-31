@@ -17,11 +17,11 @@ FoamFile
 
 solvers
 {
-    "(p|pFinal)"
+    p
     {
         solver          PCG;
         tolerance       1e-07;
-        relTol          1e-5;
+        relTol          1e-3;
 //        preconditioner	DIC;
         preconditioner
         {
@@ -39,10 +39,18 @@ solvers
 
     }
     
+    pFinal
+    {
+        $p;
+        relTol 1e-6;
+    }
+    
     "(U|k|omega)"
     {
-        solver          PBiCG;
-        preconditioner  DILU;
+//        solver          PBiCG;
+//        preconditioner  DILU;
+        solver          smoothSolver;
+        smoother        DILUGaussSeidel;
         tolerance       1e-08;
         relTol          0;
     }
@@ -51,10 +59,11 @@ solvers
 PISO
 {
     nOuterCorrectors 1;
-    nCorrectors     2;
+    nCorrectors     3;
     nNonOrthogonalCorrectors 1;
     pRefCell        0;
     pRefValue       0;
+    momentumPredictor true;
 }
 
 relaxationFactors

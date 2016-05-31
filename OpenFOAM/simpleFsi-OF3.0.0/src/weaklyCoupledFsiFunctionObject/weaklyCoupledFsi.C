@@ -25,14 +25,7 @@ License
 
 #include "weaklyCoupledFsi.H"
 #include "volFields.H"
-#include "dictionary.H"
 #include "Time.H"
-#include "wordReList.H"
-#include "fvcGrad.H"
-#include "porosityModel.H"
-#include "turbulentTransportModel.H"
-#include "turbulentFluidThermoModel.H"
-#include "dynamicFvMesh.H"
 #include "IFstream.H"
 
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
@@ -160,8 +153,11 @@ void Foam::weaklyCoupledFsi::read(const dictionary& dict)
         (
             "weaklyCoupledFsiDict",
             yDispl.mesh().time().timeName(),
+            "uniform",
             yDispl.mesh(),
-            IOobject::MUST_READ
+            IOobject::MUST_READ,
+            IOobject::NO_WRITE,
+            false
         );
         
         if (weaklyCoupledFsiHeader.headerOk())
@@ -173,7 +169,8 @@ void Foam::weaklyCoupledFsi::read(const dictionary& dict)
                     weaklyCoupledFsiHeader
                 )
             );
-        
+            
+            Info << "Old state restored" << endl;
             weaklyCoupledFsiDictPtr().lookup("YOld") >> Y_;
             Yold_ = Y_;
         }

@@ -25,14 +25,7 @@ License
 
 #include "basicFsi.H"
 #include "volFields.H"
-#include "dictionary.H"
 #include "Time.H"
-#include "wordReList.H"
-#include "fvcGrad.H"
-#include "porosityModel.H"
-#include "turbulentTransportModel.H"
-#include "turbulentFluidThermoModel.H"
-#include "dynamicFvMesh.H"
 #include "IFstream.H"
 
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //

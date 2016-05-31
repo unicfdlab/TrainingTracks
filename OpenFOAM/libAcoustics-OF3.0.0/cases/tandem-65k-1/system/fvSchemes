@@ -34,7 +34,7 @@ gradSchemes
 
 divSchemes
 {
-    default         Gauss vanLeer;
+    default         Gauss limitedLinear 1;
     div((nuEff*dev2(T(grad(U))))) Gauss linear;
 }
 
