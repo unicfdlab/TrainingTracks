@@ -115,7 +115,7 @@ functions
 	
 	timeStart	0.1;
 	
-	timeEnd		0.7;
+	timeEnd		0.8;
 	
 	c0		340;
 	
@@ -126,9 +126,6 @@ functions
 	rhoName		none;
 	
 	rhoRef		1.2;
-	
-	farField        true;
-	nearField       true;
 	
 	observers
 	{

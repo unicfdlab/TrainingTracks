@@ -61,7 +61,7 @@ functions
         // Dump to file
         log true;
         rhoName rhoInf;
-        rhoInf 1.18;
+        rhoInf 1.2;
         CofR (-0.1 0 0);
         liftDir (0 1 0);
         dragDir (1 0 0);
@@ -86,7 +86,7 @@ functions
         // Dump to file
         log true;
         rhoName rhoInf;
-        rhoInf 1.18;
+        rhoInf 1.2;
         CofR (-0.1 0 0);
         liftDir (0 1 0);
         dragDir (1 0 0);
@@ -97,6 +97,7 @@ functions
         outputControl timeStep;
         outputInterval 10;
     }
+                                                                                                                                                                    
 
     CurleAnalogy1
     {
@@ -108,117 +109,15 @@ functions
 	
 	probeFrequency	4;
 	
-	order		second;
-	
-	patchNames	(cyl-1);
-	
-	timeStart	0.2;
-	
-	timeEnd		0.7;
-	
-	c0		340;
-	
-	dRef		1e-6;
-	
-	pName		p;
-	
-	rhoName		none;
-	
-	rhoRef		1.2;
-	
-	observers
-	{
-	    microphone-A
-	    {
-		position	(-0.5223 1.7441 0.5e-6);
-		pRef		2.0e-5;
-		fftFreq		1024;
-	    }
-
-	    microphone-B
-	    {
-		position	(0.5710 2.032 0.5e-6);
-		pRef		2.0e-5;
-		fftFreq		1024;
-	    }
-	
-	    microphone-C
-	    {
-		position	(1.664 2.032 0.5e-6);
-		pRef		2.0e-5;
-		fftFreq		1024;
-	    }
-	}
-    }
-    
-    CurleAnalogy2
-    {
-	functionObjectLibs ("libAcoustics.so");
-	
-	type		Curle;
-	
-	log		true;
-	
-	probeFrequency	4;
-	
-	patchNames	(cyl-2);
-	
-	timeStart	0.2;
-	
-	timeEnd		0.7;
-	
-	c0		300;
-	
-	dRef		1e-6;
-	
-	pName		p;
-	
-	rhoName		none;
-	
-	rhoRef		1.2;
-	
-	observers
-	{
-	    microphone-A
-	    {
-		position	(-0.5223 1.7441 0.5e-6);
-		pRef		2.0e-5;
-		fftFreq		1024;
-	    }
-
-	    microphone-B
-	    {
-		position	(0.5710 2.032 0.5e-6);
-		pRef		2.0e-5;
-		fftFreq		1024;
-	    }
-	
-	    microphone-C
-	    {
-		position	(1.664 2.032 0.5e-6);
-		pRef		2.0e-5;
-		fftFreq		1024;
-	    }
-	}
-    }
-
-    CurleAnalogy3
-    {
-	functionObjectLibs ("libAcoustics.so");
-	
-	type		Curle;
-	
-	log		true;
-	
-	probeFrequency	4;
-	
 	patchNames	(cyl-1 cyl-2);
 	
-	timeStart	0.2;
+	order           second;
 	
-	timeEnd		0.7;
+	timeStart	0.1;
 	
-	c0		300;
+	timeEnd		0.8;
+	
+	c0		340;
 	
 	dRef		1e-6;
 	
