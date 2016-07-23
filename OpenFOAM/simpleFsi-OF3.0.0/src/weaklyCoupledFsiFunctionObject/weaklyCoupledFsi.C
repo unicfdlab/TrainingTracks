@@ -239,42 +239,43 @@ void Foam::weaklyCoupledFsi::write()
         
         Yold_ = Y_;
         
+        out_() << ct << ";" << Y_.first() << ";" << Y_.second() << ";" << yForce << endl;
+
         if (log_)
         {
             Info << "yForce = " << yForce << endl;
             Info << "Y= " << Y_.first() << endl;
             Info << "Vy= " << Y_.second() << endl;
         }
-        
-        out_() << ct << ";" << Y_.first() << ";" << Y_.second() << ";" << yForce << endl;
-        
-        //write data to file if time is equal to output time
-        if (yDispl.mesh().time().outputTime())
-        {
-            IOdictionary weaklyCoupledFsiDict
-            (
-                IOobject
-                (
-                    "weaklyCoupledFsiDict",
-                    yDispl.mesh().time().timeName(),
-                    "uniform",
-                    yDispl.mesh(),
-                    IOobject::NO_READ,
-                    IOobject::NO_WRITE,
-                    false
-                )
-            );
-        
-            weaklyCoupledFsiDict.set<Pair<scalar> >
-            (
-                "YOld",
-                Yold_
-            );
-
-            weaklyCoupledFsiDict.regIOobject::write();
-        }
     }
     
+    Pstream::scatter<Pair<scalar> >(Yold_);
+        
+    //write data to file if time is equal to output time
+    if (yDispl.mesh().time().outputTime())
+    {
+        IOdictionary weaklyCoupledFsiDict
+        (
+            IOobject
+            (
+                "weaklyCoupledFsiDict",
+                yDispl.mesh().time().timeName(),
+                "uniform",
+                yDispl.mesh(),
+                IOobject::NO_READ,
+                IOobject::NO_WRITE,
+                false
+            )
+        );
+     
+        weaklyCoupledFsiDict.set<Pair<scalar> >
+        (
+            "YOld",
+            Yold_
+        );
+        weaklyCoupledFsiDict.regIOobject::write();
+    }
+
     setDisplacements(yDispl);
 }
 
