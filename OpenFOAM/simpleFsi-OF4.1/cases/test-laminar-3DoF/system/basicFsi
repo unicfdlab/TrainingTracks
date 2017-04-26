@@ -1,0 +1,37 @@
+weaklyCoupled3DofFsi1
+{
+    type        weaklyCoupled3DofFsi;
+    
+    functionObjectLibs ( "libweaklyCoupled3DofFsiFunctionObject.so" );
+        
+    writeControl    timeStep;
+    timeInterval    1; // must be 1
+    
+    log         yes;
+    
+    patches     ( cylinder );
+    rho         rhoInf;      // Indicates incompressible
+    rhoInf      1000;        // Redundant for incompressible
+    CofR        (0 0 0);     // Point for torque computation
+    
+    //FSI
+    M           (7.144575 7.144575 7.144575e+15);
+    K           (639.032 639.032 639.032);
+    C           (0.94597 0.94597 0.94597);
+    R           282;
+    results     "yD.csv";
+    Ymax        (1 1 1); //Almost unbounded
+    
+    coordinateSystem
+    {
+        type    cartesian;
+        origin  (0 0 0);
+        coordinateRotation
+        {
+            type axesRotation;
+            e1 (1 0 0); //first spring aligned at x
+            e2 (0 1 0); //second spring aligned at y
+        }
+    }
+}
+

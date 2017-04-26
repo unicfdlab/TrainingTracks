@@ -1,0 +1,6 @@
+Points must be transformed in two steps:
+  1)  transformPoints -scale '(0.0015875 0.0015875 0.0015875)'
+  2)  transformPoints -scale '(1 1 0.251968503937)'
+
+ 1002  history | grep transformPoints
+
