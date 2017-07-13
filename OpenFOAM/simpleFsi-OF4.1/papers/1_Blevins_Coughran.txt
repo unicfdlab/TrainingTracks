@@ -1,0 +1,5 @@
+Robert D. Blevins, Charles S. Coughran, 2009
+«Experimental Investigation of Vortex-Induced Vibration in One and Two
+ Dimensions With Variable Mass, Damping, and Reynolds Number».
+ J. Fluids Eng 131(10), 101202 (Sep 30, 2009) (7 pages), doi:10.1115/1.3222904
+
