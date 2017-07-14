@@ -1,0 +1,25 @@
+weaklyCoupledFsi1
+{
+    type        weaklyCoupledFsi;
+    
+    functionObjectLibs ( "libweaklyCoupledFsiFunctionObject.so" );
+        
+    writeControl   timeStep;
+    timeInterval   1;
+    
+    log         yes;
+    
+    patches     ( cylinder );
+    rho         rhoInf;      // Indicates incompressible
+    rhoInf      1000;           // Redundant for incompressible
+    CofR        (0 0 0);  // 
+    
+    //FSI
+    M		22.832; //mass without water
+    K		1297.97;
+    C		6.89;
+    R		282;
+    results	"yD.csv";
+    Ymax	1.0; //Unbounded
+}
+
