@@ -15,8 +15,8 @@ weaklyCoupled3DofFsi1
     CofR        (0 0 0);     // Point for torque computation
     
     //FSI
-    M           (7.144575 7.144575 7.144575e+15);
-    K           (639.032 639.032 639.032);
+    M           7.144575;
+    K           (639.032 639.032 639.032e+15);
     C           (0.94597 0.94597 0.94597);
     R           282;
     results     "yD.csv";

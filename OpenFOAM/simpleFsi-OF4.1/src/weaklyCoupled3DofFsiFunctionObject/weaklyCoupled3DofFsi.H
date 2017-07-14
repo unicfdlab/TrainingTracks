@@ -75,7 +75,7 @@ class weaklyCoupled3DofFsi
 protected:
 
         //- cylinder mass
-        vector M_;
+        scalar M_;
         
         //- damping coefficient
         vector C_;

@@ -60,7 +60,7 @@ Foam::functionObjects::weaklyCoupled3DofFsi::weaklyCoupled3DofFsi
         runTime,
         dict
     ),
-    M_(vector::one),
+    M_(1.0),
     C_(vector::zero),
     K_(vector::zero),
     R_(1),
@@ -87,7 +87,7 @@ Foam::functionObjects::weaklyCoupled3DofFsi::weaklyCoupled3DofFsi
         obr,
         dict
     ),
-    M_(vector::one),
+    M_(1.0),
     C_(vector::zero),
     K_(vector::zero),
     R_(1),
@@ -284,7 +284,7 @@ bool Foam::functionObjects::weaklyCoupled3DofFsi::write()
                     - C_[iCmpt]*Yold_.second()[iCmpt]
                     - K_[iCmpt]*Yold_.first()[iCmpt]
                     + R_*yForce[iCmpt]
-                ) / M_[iCmpt];
+                ) / M_;
         
             Y_.first()[iCmpt] = Yold_.first()[iCmpt] + dt*Ymid.second()[iCmpt];
             Y_.second()[iCmpt]= Yold_.second()[iCmpt] + 
@@ -293,7 +293,7 @@ bool Foam::functionObjects::weaklyCoupled3DofFsi::write()
                     - C_[iCmpt]*Ymid.second()[iCmpt] 
                     - K_[iCmpt]*Ymid.first()[iCmpt] 
                     + R_*yForce[iCmpt]
-                ) / M_[iCmpt];
+                ) / M_;
         
             if (mag(Y_.first()[iCmpt]) >= Ymax_[iCmpt])
             {
