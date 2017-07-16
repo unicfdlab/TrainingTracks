@@ -1,0 +1,31 @@
+hybridCentralSolvers=/unicluster/home/matvey.kraposhin/run/Unicfdlab/github-hybridCentralSolvers/OpenFOAM-4.1
+
+EXE_INC = \
+    -I$(hybridCentralSolvers)/pisoCentral/lnInclude \
+    -I$(LIB_SRC)/finiteVolume/lnInclude \
+    -I$(LIB_SRC)/transportModels/compressible/lnInclude \
+    -I$(LIB_SRC)/thermophysicalModels/basic/lnInclude \
+    -I$(LIB_SRC)/thermophysicalModels/specie/lnInclude \
+    -I$(LIB_SRC)/TurbulenceModels/turbulenceModels/lnInclude \
+    -I$(LIB_SRC)/TurbulenceModels/compressible/lnInclude \
+    -I$(LIB_SRC)/dynamicMesh/lnInclude \
+    -I$(LIB_SRC)/meshTools/lnInclude \
+    -I$(LIB_SRC)/fvOptions/lnInclude \
+    -I$(LIB_SRC)/regionModels/regionModel/lnInclude \
+    -I$(LIB_SRC)/thermophysicalModels/solidThermo/lnInclude \
+    -I./fluid
+
+
+EXE_LIBS = \
+    -L$(FOAM_USER_LIBBIN) \
+    -lpisoCentral \
+    -lfiniteVolume \
+    -lfluidThermophysicalModels \
+    -lspecie \
+    -lturbulenceModels \
+    -lcompressibleTransportModels \
+    -lcompressibleTurbulenceModels \
+    -lmeshTools \
+    -lfvOptions \
+    -lregionModels
+    

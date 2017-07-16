@@ -1,0 +1,15 @@
+#!/bin/sh
+cd ${0%/*} || exit 1    # run from this directory
+set -x
+
+STEPS=`ls -d Step-?`
+
+for STEP_FOLDER in $STEPS
+do
+    cd $STEP_FOLDER/myChtPimpleCentralFoam
+    wclean
+    cd ../../
+done
+
+
+# ----------------------------------------------------------------- end-of-file
