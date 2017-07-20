@@ -1,0 +1,12 @@
+Could not find Gmsh.Interactive plotting and shapes module not available.
+k = 6.28318530718
+('prepared to ', 0.5888099670410156, ' s')
+The linear system was solved in 13 iterations
+('solved to ', 22.30123496055603, ' s')
+------------
+Mic: (0,0,1.0), pressure amplitude: 0.725927100331, analytical solution: 0.754694197027
+Mic: (0,0,2.0), pressure amplitude: 0.362949068459, analytical solution: 0.377347098514
+Mic: (0,0,3.0), pressure amplitude: 0.241960451025, analytical solution: 0.251564732342
+Mic: (0,0,4.0), pressure amplitude: 0.181492814702, analytical solution: 0.188673549257
+Mic: (0,0,5.0), pressure amplitude: 0.145215037254, analytical solution: 0.150938839405
+Mic: (0,0,10.0), pressure amplitude: 0.0726433634245, analytical solution: 0.0754694197027
