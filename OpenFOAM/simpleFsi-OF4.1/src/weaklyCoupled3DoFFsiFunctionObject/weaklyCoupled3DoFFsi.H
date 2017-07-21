@@ -22,10 +22,10 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::weaklyCoupled3DofFsi
+    Foam::weaklyCoupled3DoFFsi
 
 Group
-    grpweaklyCoupled3DofFsiFunctionObjects
+    grpweaklyCoupled3DoFFsiFunctionObjects
 
 Description
     
@@ -38,8 +38,8 @@ SourceFiles
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef weaklyCoupled3DofFsi_H
-#define weaklyCoupled3DofFsi_H
+#ifndef weaklyCoupled3DoFFsi_H
+#define weaklyCoupled3DoFFsi_H
 
 
 #include "forces.H"
@@ -64,10 +64,10 @@ namespace functionObjects
 {
 
 /*---------------------------------------------------------------------------*\
-                           Class weaklyCoupled3DofFsi Declaration
+                           Class weaklyCoupled3DoFFsi Declaration
 \*---------------------------------------------------------------------------*/
 
-class weaklyCoupled3DofFsi
+class weaklyCoupled3DoFFsi
 :
     public forces
 {
@@ -105,10 +105,10 @@ protected:
 protected:
 
         //- Disallow default bitwise copy construct
-        weaklyCoupled3DofFsi(const weaklyCoupled3DofFsi&);
+        weaklyCoupled3DoFFsi(const weaklyCoupled3DoFFsi&);
 
         //- Disallow default bitwise assignment
-        void operator=(const weaklyCoupled3DofFsi&);
+        void operator=(const weaklyCoupled3DoFFsi&);
         
         //-
         void createFsiOutFile(const dictionary& dict);
@@ -117,13 +117,13 @@ protected:
 public:
 
     //- Runtime type information
-    TypeName("weaklyCoupled3DofFsi");
+    TypeName("weaklyCoupled3DoFFsi");
 
 
     // Constructors
 
         //- Construct from given Time and dictionary.
-        weaklyCoupled3DofFsi
+        weaklyCoupled3DoFFsi
         (
             const word& name,
             const Time&,
@@ -131,7 +131,7 @@ public:
         );
         
         //- Construct from given objectRegistry and dictionary.
-        weaklyCoupled3DofFsi
+        weaklyCoupled3DoFFsi
         (
             const word& name,
             const objectRegistry&,
@@ -139,18 +139,18 @@ public:
         );
 
     //- Destructor
-    virtual ~weaklyCoupled3DofFsi();
+    virtual ~weaklyCoupled3DoFFsi();
 
 
     // Member Functions
 
-        //- Read the weaklyCoupled3DofFsi data
+        //- Read the weaklyCoupled3DoFFsi data
         virtual bool read(const dictionary&);
         
         //-
         virtual bool execute();
         
-        //- Write the weaklyCoupled3DofFsi
+        //- Write the weaklyCoupled3DoFFsi
         virtual bool write();
         
         //- Distributes displacements between slave processes

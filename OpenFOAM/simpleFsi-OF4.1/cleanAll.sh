@@ -8,7 +8,7 @@ cd src
 cd helloWorldFunctionObject; wclean; cd ../
 cd basicFsiFunctionObject; wclean; cd ../
 cd weaklyCoupledFsiFunctionObject; wclean; cd ../
-cd weaklyCoupled3DofFsiFunctionObject; wclean; cd ../
+cd weaklyCoupled3DoFFsiFunctionObject; wclean; cd ../
 
 cd ../
 

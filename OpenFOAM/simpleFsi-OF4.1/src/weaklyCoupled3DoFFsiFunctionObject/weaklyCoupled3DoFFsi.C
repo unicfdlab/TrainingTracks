@@ -23,7 +23,7 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "weaklyCoupled3DofFsi.H"
+#include "weaklyCoupled3DoFFsi.H"
 #include "volFields.H"
 #include "Time.H"
 #include "IFstream.H"
@@ -35,9 +35,9 @@ namespace Foam
 {
 namespace functionObjects
 {
-    defineTypeNameAndDebug(weaklyCoupled3DofFsi, 0);
+    defineTypeNameAndDebug(weaklyCoupled3DoFFsi, 0);
     
-    addToRunTimeSelectionTable(functionObject, weaklyCoupled3DofFsi, dictionary);
+    addToRunTimeSelectionTable(functionObject, weaklyCoupled3DoFFsi, dictionary);
 }
 }
 
@@ -47,7 +47,7 @@ namespace functionObjects
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-Foam::functionObjects::weaklyCoupled3DofFsi::weaklyCoupled3DofFsi
+Foam::functionObjects::weaklyCoupled3DoFFsi::weaklyCoupled3DoFFsi
 (
     const word& name,
     const Time& runTime,
@@ -74,7 +74,7 @@ Foam::functionObjects::weaklyCoupled3DofFsi::weaklyCoupled3DofFsi
     this->createFsiOutFile(dict);
 }
 
-Foam::functionObjects::weaklyCoupled3DofFsi::weaklyCoupled3DofFsi
+Foam::functionObjects::weaklyCoupled3DoFFsi::weaklyCoupled3DoFFsi
 (
     const word& name,
     const objectRegistry& obr,
@@ -135,13 +135,13 @@ Foam::functionObjects::weaklyCoupled3DofFsi::weaklyCoupled3DofFsi
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
-Foam::functionObjects::weaklyCoupled3DofFsi::~weaklyCoupled3DofFsi()
+Foam::functionObjects::weaklyCoupled3DoFFsi::~weaklyCoupled3DoFFsi()
 {}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void Foam::functionObjects::weaklyCoupled3DofFsi::createFsiOutFile(const dictionary& dict)
+void Foam::functionObjects::weaklyCoupled3DoFFsi::createFsiOutFile(const dictionary& dict)
 {
     if (Pstream::master())
     {
@@ -154,11 +154,11 @@ void Foam::functionObjects::weaklyCoupled3DofFsi::createFsiOutFile(const diction
                 dict.lookup("results")
             )
         );
-        file(2) << "Time;Y1;Y2;Y3;Vy1;Vy2;Vy3;Fy1;Fy2;Fy3" << endl;
+        file(2) << "Time;Y1;Y2;Y3;Vy1;Vy2;Vy3;Fy1;Fy2;Fy3;locY1;locY2;locY3;locVy1;locVy2;locVy3;locFy1;locFy2;locFy3" << endl;
     }
 }
 
-bool Foam::functionObjects::weaklyCoupled3DofFsi::read(const dictionary& dict)
+bool Foam::functionObjects::weaklyCoupled3DoFFsi::read(const dictionary& dict)
 {
     if (!forces::read(dict))
     {
@@ -181,8 +181,8 @@ bool Foam::functionObjects::weaklyCoupled3DofFsi::read(const dictionary& dict)
     }
 
     Info << "Reading old state" << endl;
-    autoPtr<IOdictionary> weaklyCoupled3DofFsiFsiDictPtr;
-    //try to read weaklyCoupled3DofFsiFsi object properties
+    autoPtr<IOdictionary> weaklyCoupled3DoFFsiFsiDictPtr;
+    //try to read weaklyCoupled3DoFFsiFsi object properties
     {
         volVectorField& yDispl = 
             const_cast<volVectorField&>
@@ -190,10 +190,10 @@ bool Foam::functionObjects::weaklyCoupled3DofFsi::read(const dictionary& dict)
                 obr_.lookupObject<volVectorField>("cellDisplacement")
             );
             
-            //read weaklyCoupled3DofFsiFsiDict header
-            IOobject weaklyCoupled3DofFsiFsiHeader
+            //read weaklyCoupled3DoFFsiFsiDict header
+            IOobject weaklyCoupled3DoFFsiFsiHeader
             (
-                "weaklyCoupled3DofFsiFsiDict",
+                "weaklyCoupled3DoFFsiFsiDict",
                 yDispl.mesh().time().timeName(),
                 "uniform",
                 yDispl.mesh(),
@@ -202,18 +202,18 @@ bool Foam::functionObjects::weaklyCoupled3DofFsi::read(const dictionary& dict)
                 false
             );
             
-            if (weaklyCoupled3DofFsiFsiHeader.headerOk())
+            if (weaklyCoupled3DoFFsiFsiHeader.headerOk())
             {
-                weaklyCoupled3DofFsiFsiDictPtr.reset
+                weaklyCoupled3DoFFsiFsiDictPtr.reset
                 (
                     new IOdictionary
                     (
-                        weaklyCoupled3DofFsiFsiHeader
+                        weaklyCoupled3DoFFsiFsiHeader
                     )
                 );
                 
                 Info << "Old state restored" << endl;
-                weaklyCoupled3DofFsiFsiDictPtr().lookup("YOld") >> Y_;
+                weaklyCoupled3DoFFsiFsiDictPtr().lookup("YOld") >> Y_;
                 Yold_ = Y_;
             }
             
@@ -222,7 +222,7 @@ bool Foam::functionObjects::weaklyCoupled3DofFsi::read(const dictionary& dict)
     
     return true;
 }
-void Foam::functionObjects::weaklyCoupled3DofFsi::setDisplacements(volVectorField& yDispl)
+void Foam::functionObjects::weaklyCoupled3DoFFsi::setDisplacements(volVectorField& yDispl)
 {
     if (coordSys_.empty())
     {
@@ -246,12 +246,12 @@ void Foam::functionObjects::weaklyCoupled3DofFsi::setDisplacements(volVectorFiel
     }
 }
 
-bool Foam::functionObjects::weaklyCoupled3DofFsi::execute()
+bool Foam::functionObjects::weaklyCoupled3DoFFsi::execute()
 {
     return true;
 }
 
-bool Foam::functionObjects::weaklyCoupled3DofFsi::write()
+bool Foam::functionObjects::weaklyCoupled3DoFFsi::write()
 {
     if (!forces::write())
     {
@@ -274,24 +274,25 @@ bool Foam::functionObjects::weaklyCoupled3DofFsi::write()
         
         //Runge-Kutta 2-nd order method
         Pair<vector> Ymid;
-        
+
         forAll(Ymid.first(), iCmpt)
-        {
+        {        
+
             Ymid.first()[iCmpt] = Yold_.first()[iCmpt] + 0.5*dt*Yold_.second()[iCmpt];
-            Ymid.second()[iCmpt]= Yold_.second()[iCmpt] + 
+            Ymid.second()[iCmpt] = Yold_.second()[iCmpt] + 
                 0.5*dt*
                 (
-                    - C_[iCmpt]*Yold_.second()[iCmpt]
+                      C_[iCmpt]*Yold_.second()[iCmpt]
                     - K_[iCmpt]*Yold_.first()[iCmpt]
                     + R_*yForce[iCmpt]
                 ) / M_;
         
             Y_.first()[iCmpt] = Yold_.first()[iCmpt] + dt*Ymid.second()[iCmpt];
-            Y_.second()[iCmpt]= Yold_.second()[iCmpt] + 
+            Y_.second()[iCmpt] = Yold_.second()[iCmpt] + 
                 dt*
                 (
-                    - C_[iCmpt]*Ymid.second()[iCmpt] 
-                    - K_[iCmpt]*Ymid.first()[iCmpt] 
+                    - C_[iCmpt]*Ymid.second()[iCmpt]
+                    - K_[iCmpt]*Ymid.first()[iCmpt]
                     + R_*yForce[iCmpt]
                 ) / M_;
         
@@ -309,6 +310,23 @@ bool Foam::functionObjects::weaklyCoupled3DofFsi::write()
         Log << "Vy= " << Y_.second() << endl;
         
         file(2)<< ct;
+        
+        vector Y = coordSys_().globalVector(Y_.first());
+        vector Vy = coordSys_().globalVector(Y_.second());
+        
+        forAll(Y, iCmpt)
+        {
+             file(2)<< ";" << Y[iCmpt];
+        }
+        forAll(Vy, iCmpt)
+        {
+            file(2)<< ";" << Vy[iCmpt];
+        }
+        forAll(force, iCmpt)
+        {
+            file(2)<< ";" << force[iCmpt];
+        }
+        
         forAll(Y_.first(), iCmpt)
         {
              file(2)<< ";" << Y_.first()[iCmpt];
@@ -329,11 +347,11 @@ bool Foam::functionObjects::weaklyCoupled3DofFsi::write()
     //write data to file if time is equal to output time
     if (yDispl.mesh().time().outputTime())
     {
-        IOdictionary weaklyCoupled3DofFsiFsiDict
+        IOdictionary weaklyCoupled3DoFFsiFsiDict
         (
             IOobject
             (
-                "weaklyCoupled3DofFsiFsiDict",
+                "weaklyCoupled3DoFFsiFsiDict",
                 yDispl.mesh().time().timeName(),
                 "uniform",
                 yDispl.mesh(),
@@ -343,13 +361,13 @@ bool Foam::functionObjects::weaklyCoupled3DofFsi::write()
             )
         );
         
-        weaklyCoupled3DofFsiFsiDict.set<Pair<vector> >
+        weaklyCoupled3DoFFsiFsiDict.set<Pair<vector> >
         (
             "YOld",
             Yold_
         );
         
-        weaklyCoupled3DofFsiFsiDict.regIOobject::write();
+        weaklyCoupled3DoFFsiFsiDict.regIOobject::write();
     }
     
     setDisplacements(yDispl);
