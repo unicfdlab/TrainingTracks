@@ -9,50 +9,27 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       dictionary;
-    location    "system";
-    object      controlDict;
+    class       volScalarField;
+    location    "0";
+    object      T;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     myChtPimpleCentralFoam;
+dimensions      [0 0 0 1 0 0 0];
 
-startFrom       latestTime;
+internalField   uniform 293;
 
-startTime       0;
+boundaryField
+{
+    cone_solid
+    {
+        type            compressible::turbulentTemperatureCoupledBaffleMixed;
+        value           $internalField;
+        Tnbr            T;
+        kappaMethod     solidThermo;
+    }
+    #include "wedgeAndSlip"
+}
 
-stopAt          endTime;
-
-endTime         0.008;
-
-deltaT          1e-5;
-
-writeControl    adjustableRunTime;
-
-writeInterval   2e-4;
-
-purgeWrite      0;
-
-writeFormat     binary;
-
-writePrecision  6;
-
-writeCompression off;
-
-timeFormat      general;
-
-timePrecision   6;
-
-runTimeModifiable true;
-
-adjustTimeStep  true;
-
-maxCo           0.5;
-
-maxDeltaT       1e-3;
-
-CourantType	cellCourant;
-
-libs ("libcompressibleTools.so");
 
 // ************************************************************************* //

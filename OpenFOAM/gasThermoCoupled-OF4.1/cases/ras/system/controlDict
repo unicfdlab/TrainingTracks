@@ -15,7 +15,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     chtMultiRegionCentralFoam;
+application     myChtPimpleCentralFoam;
 
 startFrom       latestTime;
 

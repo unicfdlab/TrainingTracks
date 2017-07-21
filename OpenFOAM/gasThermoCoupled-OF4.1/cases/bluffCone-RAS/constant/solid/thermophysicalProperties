@@ -1,7 +1,7 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  2.3.0                                 |
+|  \\    /   O peration     | Version:  4.x                                   |
 |   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -10,49 +10,44 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    location    "system";
-    object      controlDict;
+    object      thermophysicalProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     myChtPimpleCentralFoam;
+thermoType
+{
+    type            heSolidThermo;
+    mixture         pureMixture;
+    transport       constIso;
+    thermo          hConst;
+    equationOfState rhoConst;
+    specie          specie;
+    energy          sensibleEnthalpy;
+}
 
-startFrom       latestTime;
+mixture
+{
+    specie
+    {
+        nMoles      1;
+        molWeight   48;
+    }
 
-startTime       0;
+    transport
+    {
+        kappa   20.0;
+    }
 
-stopAt          endTime;
+    thermodynamics
+    {
+        Hf      0;
+        Cp      600;
+    }
 
-endTime         0.008;
-
-deltaT          1e-5;
-
-writeControl    adjustableRunTime;
-
-writeInterval   2e-4;
-
-purgeWrite      0;
-
-writeFormat     binary;
-
-writePrecision  6;
-
-writeCompression off;
-
-timeFormat      general;
-
-timePrecision   6;
-
-runTimeModifiable true;
-
-adjustTimeStep  true;
-
-maxCo           0.5;
-
-maxDeltaT       1e-3;
-
-CourantType	cellCourant;
-
-libs ("libcompressibleTools.so");
+    equationOfState
+    {
+        rho     4500;
+    }
+}
 
 // ************************************************************************* //

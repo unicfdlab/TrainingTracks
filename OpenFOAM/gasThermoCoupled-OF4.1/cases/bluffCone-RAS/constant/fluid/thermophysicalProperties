@@ -10,49 +10,45 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    location    "system";
-    object      controlDict;
+    location    "constant";
+    object      thermophysicalProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     myChtPimpleCentralFoam;
+thermoType
+{
+    type            hePsiThermo;
+    mixture         pureMixture;
+    transport       sutherland;
+    thermo          hConst;
+    equationOfState perfectGas;
+    specie          specie;
+    energy          sensibleEnthalpy;
+}
 
-startFrom       latestTime;
+// Note: these are the properties for a "non-normalised" inviscid gas
 
-startTime       0;
+mixture
+{
+    specie
+    {
+        nMoles          1;
+        molWeight       28.9;
+    }
+    thermodynamics
+    {
+        Cp              1005;
+        //Cv              717.5;
+        Hf              0;
+    }
+    transport
+    {
+        //mu              1.8e-5;
+        As              1.3957e-5;
+        Ts              120;
+        Pr              0.7;
+    }
+}
 
-stopAt          endTime;
-
-endTime         0.008;
-
-deltaT          1e-5;
-
-writeControl    adjustableRunTime;
-
-writeInterval   2e-4;
-
-purgeWrite      0;
-
-writeFormat     binary;
-
-writePrecision  6;
-
-writeCompression off;
-
-timeFormat      general;
-
-timePrecision   6;
-
-runTimeModifiable true;
-
-adjustTimeStep  true;
-
-maxCo           0.5;
-
-maxDeltaT       1e-3;
-
-CourantType	cellCourant;
-
-libs ("libcompressibleTools.so");
 
 // ************************************************************************* //

@@ -1,7 +1,7 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  2.3.0                                 |
+|  \\    /   O peration     | Version:  4.x                                   |
 |   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -10,49 +10,40 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    location    "system";
-    object      controlDict;
+    object      fvSchemes;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     myChtPimpleCentralFoam;
+ddtSchemes
+{
+    default Euler;
+}
 
-startFrom       latestTime;
+gradSchemes
+{
+    default         Gauss linear;
+}
 
-startTime       0;
+divSchemes
+{
+    default         none;
+}
 
-stopAt          endTime;
+laplacianSchemes
+{
+    default             none;
+    laplacian(alpha,h)  Gauss linear corrected;
+}
 
-endTime         0.008;
+interpolationSchemes
+{
+    default         linear;
+}
 
-deltaT          1e-5;
+snGradSchemes
+{
+    default         corrected;
+}
 
-writeControl    adjustableRunTime;
-
-writeInterval   2e-4;
-
-purgeWrite      0;
-
-writeFormat     binary;
-
-writePrecision  6;
-
-writeCompression off;
-
-timeFormat      general;
-
-timePrecision   6;
-
-runTimeModifiable true;
-
-adjustTimeStep  true;
-
-maxCo           0.5;
-
-maxDeltaT       1e-3;
-
-CourantType	cellCourant;
-
-libs ("libcompressibleTools.so");
 
 // ************************************************************************* //
