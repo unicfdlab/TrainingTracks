@@ -1,0 +1,9 @@
+set datafile separator " "
+set decimalsign "."
+set term pngcairo
+set output "graph/mp.png"
+set autoscale xfix
+set autoscale yfix
+set autoscale cbfix
+plot 'output/matrixPlot.txt' matrix with image notitle
+     

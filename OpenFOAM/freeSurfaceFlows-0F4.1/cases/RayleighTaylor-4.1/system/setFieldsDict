@@ -1,0 +1,52 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.3.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      setFieldsDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+defaultFieldValues
+(
+    volScalarFieldValue alpha.liquid 0
+    volVectorFieldValue U	    (0 0 0)
+);
+
+regions
+(
+    surfaceToCell
+    {
+        file            "liquid.stl";
+        useSurfaceOrientation false;  // use closed surface inside/outside
+                                      // test (ignores includeCut,
+                                      // outsidePoints)
+        outsidePoints   ((1e-4 0 -1.04));    // definition of outside
+        includeCut      true;              // cells cut by surface
+        includeInside   true;              // cells not on outside of surf
+        includeOutside  false;              // cells on outside of surf
+        nearDistance    -1;                 // cells with centre near surf
+                                            // (set to -1 if not used)
+        curvature       -100;                // cells within nearDistance
+                                            // and near surf curvature
+                                            // (set to -100 if not used)
+	fieldValues
+	(
+	    volScalarFieldValue alpha.liquid 1
+	    volVectorFieldValue U	    (0 0 0)
+	);
+    }
+
+
+);
+
+
+// ************************************************************************* //
