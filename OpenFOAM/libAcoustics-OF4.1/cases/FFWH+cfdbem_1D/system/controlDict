@@ -15,7 +15,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     rhoPimpleFoam;
+application     rhoCentralFoam;
 
 startFrom       startTime; //latestTime;
 
@@ -25,7 +25,7 @@ stopAt          endTime;
 
 endTime         0.1;
 
-deltaT          2.5e-6;
+deltaT          1.25e-5;
 
 writeControl    adjustableRunTime;
 
