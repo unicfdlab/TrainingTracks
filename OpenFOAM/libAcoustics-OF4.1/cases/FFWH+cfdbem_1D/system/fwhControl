@@ -2,19 +2,19 @@ monopoleFwhTest
 {
         type            FfowcsWilliamsHawkings;
         #include        "commonSettings";
-        patches ("sphere");
+        patches 	("sphere");
         interpolationScheme cell;
         formulationType Farassat1AFormulation;
         cleanFreq       100;
         
         surfaces
         (
-                sphere
-                {
-                    type            patch;
-                    patches         ("sphere");
-                    interpolate     false;
-                }
+            sphere
+            {
+                type            patch;
+                patches         ("sphere");
+                interpolate     false;
+            }
         );
         
         nonUniformSurfaceMotion false;

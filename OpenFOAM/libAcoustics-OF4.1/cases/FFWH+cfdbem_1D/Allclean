@@ -5,9 +5,10 @@ cd ${0%/*} || exit 1    # run from this directory
 . $WM_PROJECT_DIR/bin/tools/CleanFunctions
 
 cleanCase
-#rm -rf acousticData
-#rm -rf pressureData
-#rm -rf complexPressureData
+rm -rf acousticData
+rm -rf pressureData
+rm -rf complexPressureData
+rm -rf surfaceGeometryData
 bem/./clean.sh
 
 # ----------------------------------------------------------------- end-of-file

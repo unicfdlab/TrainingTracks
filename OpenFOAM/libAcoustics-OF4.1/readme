@@ -6,7 +6,7 @@ Case description
 Pulsating sphere, 1D statement. 
 Computations of acoustic pressure using FFWH acoustic analogy and CFD/BEM technique simultaneously.
 Version for running.
-Computational time: ~ 10 min (4 cores).
+Computational time: ~ 1 min.
 
 2) bempp-basic
 
@@ -21,7 +21,7 @@ Pulsating sphere, 3D statement.
 Computations of acoustic pressure using FFWH acoustic analogy and CFD/BEM technique simultaneously.
 Version just for demonstration due to long computational time on the laptops. 
 
-Computational time: ~ 10 min (96 cores). 
+Computational time: ~ 10 min (60 cores). 
 
 All results are saved and available for analysis.
 

@@ -25,7 +25,7 @@ stopAt          endTime;
 
 endTime         0.1;
 
-deltaT          2.5e-6;
+deltaT          1.25e-5;
 
 writeControl    adjustableRunTime;
 
@@ -52,8 +52,6 @@ maxCo           0.5;
 maxDeltaT       1e-5;
 
 CourantType	cellCourant;
-
-libs ("libcompressibleTools.so");
 
 functions
 {
