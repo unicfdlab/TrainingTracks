@@ -1,0 +1,17 @@
+Case description
+----------------
+
+1) spillway-2.2/
+
+Spillway tutorial for OpenFOAM v.2.2.
+Just for demonstration of old case settings.
+
+2) spillway-v1812/
+
+Spillway tutorial for OpenFOAM v.1812.
+Actual version for running.
+
+3) RayleighTaylor-v1812/
+
+Simulation of Rayleigh --- Taylor instability in OpenFOAM v.1812.
+Additional case: intro for hydrodynamic instabilities.
