@@ -1,0 +1,27 @@
+set datafile separator " "
+set term pngcairo font "Helvetica,16"
+set output "graph/polar.png"
+unset border
+set polar
+set grid polar
+set grid ls 8
+R = 0.2
+margin = -0.75
+set rrange [0:R]
+set label 1 "0" at (R+margin)*cos(0*pi)-0.025,(R+margin)*sin(0*pi) font "Arial,10"  
+set label 2 "30" at (R+margin)*cos(pi/6)-0.025,(R+margin)*sin(pi/6) font "Arial,10"  
+set label 3 "60" at (R+margin)*cos(pi/3)-0.025,(R+margin)*sin(pi/3) font "Arial,10"  
+set label 4 "90" at (R+margin)*cos(0.5*pi),(R+margin)*sin(0.5*pi) font "Arial,10"  
+set label 5 "120" at (R+margin)*cos(2*pi/3)-0.025,(R+margin)*sin(2*pi/3) font "Arial,10"  
+set label 6 "150" at (R+margin)*cos(5*pi/6)-0.025,(R+margin)*sin(5*pi/6) font "Arial,10"  
+set label 7 "180" at (R+margin)*cos(1*pi)-0.025,(R+margin)*sin(1*pi) font "Arial,10"  
+set label 8 "210" at (R+margin)*cos(7*pi/6)-0.025,(R+margin)*sin(7*pi/6) font "Arial,10"  
+set label 9 "240" at (R+margin)*cos(4*pi/3)-0.025,(R+margin)*sin(4*pi/3) font "Arial,10"  
+set label 10 "270" at (R+margin)*cos(1.5*pi),(R+margin)*sin(1.5*pi) font "Arial,10"  
+set label 11 "300" at (R+margin)*cos(5*pi/3)-0.025,(R+margin)*sin(5*pi/3) font "Arial,10"  
+set label 12 "330" at (R+margin)*cos(11*pi/6)-0.025,(R+margin)*sin(11*pi/6) font "Arial,10"  
+unset xtics
+unset ytics
+set key outside top center horizontal
+plot 'output/polarR5.txt' title "BEM" with lines lt 1 lw 3, \
+     'output/analitPolar.txt' title "analytical" with lines lt 2 lw 2
