@@ -1,0 +1,7 @@
+set datafile separator " "
+set term pngcairo font "Helvetica,16"
+set output "graph/pressureR.png"
+set xlabel "R"
+set ylabel "p"
+plot 'output/pressureR.txt' title "BEM" with lines lt 1 lw 3, \
+     'output/analitR.txt' title "analytical" with lines lt 2 lw 3

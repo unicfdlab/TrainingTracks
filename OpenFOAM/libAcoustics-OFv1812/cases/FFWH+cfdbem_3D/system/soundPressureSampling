@@ -1,0 +1,56 @@
+surfacePressure
+{
+    type                soundPressureSampler;
+    libs  ("libAcoustics.so");
+    writeControl        timeStep;
+    writeInterval       1;
+    
+    outputGeometryFormat gmsh;
+    
+    fields
+    (
+        p
+    );
+    
+    pName p;
+
+    log   true;
+    
+    interpolationScheme cellPoint;
+
+    surfaces
+    (
+        coarse
+        {
+
+            type        sampledTriSurfaceMesh;
+            surface     sphere_opt_357.stl;
+            source      cells;  // What to sample: cells (nearest cell)
+                                        // insideCells (only triangles inside cell)
+                                        // boundaryFaces (nearest boundary face)
+            interpolate true;
+        }
+
+        medium
+        {
+
+            type        sampledTriSurfaceMesh;
+            surface     sphere_opt_1412.stl;
+            source      cells;  // What to sample: cells (nearest cell)
+                                        // insideCells (only triangles inside cell)
+                                        // boundaryFaces (nearest boundary face)
+            interpolate true;
+        }
+        
+        fine
+        {
+
+            type        sampledTriSurfaceMesh;
+            surface     sphere_opt_5677.stl;
+            source      cells;  // What to sample: cells (nearest cell)
+                                        // insideCells (only triangles inside cell)
+                                        // boundaryFaces (nearest boundary face)
+            interpolate true;
+        }
+    );
+}
