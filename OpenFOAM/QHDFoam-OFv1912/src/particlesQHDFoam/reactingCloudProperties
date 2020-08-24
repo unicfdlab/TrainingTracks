@@ -1,0 +1,49 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.0                                   |
+|   \\  /    A nd           | Web:      http://www.openfoam.org               |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+
+FoamFile
+{
+    version         2.0;
+    format          ascii;
+    class           dictionary;
+    object          reactingCloudProperties;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+interpolationSchemes
+{
+    U               cellPointFace;
+}
+
+density 	10.;
+drag 		1e0;
+subCycles	20;
+useMomentumSource 1;
+
+wall
+{
+	reflect 	1;
+	elasticity 	0.9;
+}
+
+injection 
+{
+	thres	0.2;
+	center  (0.05 0.05 0.05);
+	r0	0.02;
+	vel0	5;
+	vel1	(0. 8. 0.);
+	d0	0.001;
+	d1	0.009;
+	tStart  0.1;
+	tEnd	0.4;
+}
+
+
+// ************************************************************************* //

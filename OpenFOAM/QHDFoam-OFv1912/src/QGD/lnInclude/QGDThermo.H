@@ -1,0 +1,1 @@
+../thermoModels/QGDThermo/QGDThermo.H

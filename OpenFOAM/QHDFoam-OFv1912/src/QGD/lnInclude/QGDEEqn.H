@@ -1,0 +1,1 @@
+../QGDcommon/QGDEEqn.H

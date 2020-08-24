@@ -1,0 +1,1 @@
+../QGDCoeffs/varScModel7/varScModel7.C
