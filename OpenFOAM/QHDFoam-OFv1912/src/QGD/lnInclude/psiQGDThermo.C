@@ -1,1 +1,0 @@
-../thermoModels/psiQGDThermo/psiQGDThermo.C

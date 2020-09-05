@@ -1,1 +1,0 @@
-../BCs/qgdFlux/qgdFluxFvPatchScalarField.H

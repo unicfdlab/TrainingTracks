@@ -1,1 +1,0 @@
-../thermoModels/powerLaw/powerLawTransport.H

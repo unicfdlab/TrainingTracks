@@ -1,1 +1,0 @@
-../fvsc/reduced/reducedFaceNormalStencil.C

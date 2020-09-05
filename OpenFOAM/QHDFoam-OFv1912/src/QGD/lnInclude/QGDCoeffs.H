@@ -1,1 +1,0 @@
-../QGDCoeffs/QGDCoeffs/QGDCoeffs.H

@@ -1,1 +1,0 @@
-../QGDCoeffs/T0byGr/T0byGr.C

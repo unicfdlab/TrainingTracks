@@ -1,1 +1,0 @@
-../thermoModels/powerLaw/powerLawDoc.H

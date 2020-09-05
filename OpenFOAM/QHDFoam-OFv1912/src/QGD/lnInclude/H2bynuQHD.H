@@ -1,1 +1,0 @@
-../QGDCoeffs/H2bynuQHD/H2bynuQHD.H

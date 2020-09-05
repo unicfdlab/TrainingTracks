@@ -1,1 +1,0 @@
-../thermoModels/psiQGDReactionThermo/psiQGDReactionThermoDoc.H

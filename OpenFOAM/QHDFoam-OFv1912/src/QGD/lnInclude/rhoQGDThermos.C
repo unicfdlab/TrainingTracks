@@ -1,1 +1,0 @@
-../thermoModels/rhoQGDThermo/rhoQGDThermos.C
