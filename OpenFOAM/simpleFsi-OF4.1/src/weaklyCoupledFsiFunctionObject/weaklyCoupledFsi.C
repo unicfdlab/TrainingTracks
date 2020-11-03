@@ -96,9 +96,7 @@ Foam::functionObjects::weaklyCoupledFsi::weaklyCoupledFsi
     Yold_(0.0, 0.0)
 {
     this->read(dict);
-//    
-
-
+    
     if (Pstream::master())
     {
         List<word> oldFileLines(0);

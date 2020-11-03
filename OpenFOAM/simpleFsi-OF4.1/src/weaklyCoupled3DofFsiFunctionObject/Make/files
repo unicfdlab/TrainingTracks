@@ -1,3 +1,0 @@
-weaklyCoupled3DofFsi.C
-
-LIB = $(FOAM_USER_LIBBIN)/libweaklyCoupled3DofFsiFunctionObject

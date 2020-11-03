@@ -1,0 +1,19 @@
+helloWorld1
+{
+    type        helloWorld;
+    
+    libs ( "libforces.so" "libhelloWorldFunctionObject.so" );
+        
+    writeControl   timeStep;
+    timeInterval    1;  //must be 1
+    
+    log         yes;
+
+    //from libforces
+    patches     ( cylinder );
+    rho         rhoInf;      // Indicates incompressible
+    rhoInf      1000;        // Redundant for incompressible
+    CofR        (0 0 0);     // Reference point for torque computation 
+    
+}
+

@@ -1,8 +1,8 @@
 weaklyCoupled3DofFsi1
 {
-    type        weaklyCoupled3DofFsi;
+    type        weaklyCoupled3DoFFsi;
     
-    functionObjectLibs ( "libweaklyCoupled3DofFsiFunctionObject.so" );
+    functionObjectLibs ( "libweaklyCoupled3DoFFsiFunctionObject.so" );
         
     writeControl    timeStep;
     timeInterval    1; // must be 1
@@ -16,8 +16,8 @@ weaklyCoupled3DofFsi1
     
     //FSI
     M           7.144575;
-    K           (639.032 639.032 639.032e+15);
-    C           (0.94597 0.94597 0.94597);
+    K           (639.032 639.032 0.0);
+    C           (0.94597 0.94597 0.0);
     R           282;
     results     "yD.csv";
     Ymax        (1 1 1); //Almost unbounded
@@ -29,8 +29,8 @@ weaklyCoupled3DofFsi1
         coordinateRotation
         {
             type axesRotation;
-            e1 (1 0 0); //first spring aligned at x
-            e2 (0 1 0); //second spring aligned at y
+            e1 (0 1 0); //first spring aligned at x
+            e2 (1 0 0); //second spring aligned at y
         }
     }
 }
