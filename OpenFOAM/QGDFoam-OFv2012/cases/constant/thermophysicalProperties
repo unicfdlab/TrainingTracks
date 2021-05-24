@@ -43,18 +43,19 @@ mixture
         Hf              0;
         Sf              0;
         Cp              2.5;
+        Tref            0;
     }
     
     transport
     {
         mu   0.0;
-        Pr   0.667;
+        Pr   0.7;
     }
 }
 
 QGD
 {
-    implicitDiffusion true; //false; 
+    implicitDiffusion true; 
     QGDCoeffs constScPrModel1;
     constScPrModel1Dict
     {

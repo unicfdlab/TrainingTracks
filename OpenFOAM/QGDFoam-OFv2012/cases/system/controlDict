@@ -1,7 +1,7 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  2.3.0                                 |
+|  \\    /   O peration     | Version:  4.x                                   |
 |   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -17,25 +17,25 @@ FoamFile
 
 application     QGDFoam;
 
-startFrom       startTime; //latestTime; 
+startFrom       startTime;
 
-startTime       0;
+startTime       0.0;
 
 stopAt          endTime;
 
-endTime         5.0; 
+endTime         4.5;
 
-deltaT          1e-11; 
+deltaT          1e-8;
 
 writeControl    adjustableRunTime;
 
-writeInterval   0.1; 
+writeInterval   0.1;
 
-purgeWrite      0;
+cycleWrite      0;
 
-writeFormat     ascii; //binary;
+writeFormat     ascii;
 
-writePrecision  12;
+writePrecision  10;
 
 writeCompression off;
 
@@ -43,19 +43,12 @@ timeFormat      general;
 
 timePrecision   6;
 
-runTimeModifiable true;
+adjustTimeStep  yes;
 
-adjustTimeStep  true;
+runTimeModifiable yes;
 
-maxCo 0.2; 
+maxCo           0.2;
 
-maxDeltaT 0.2;
-
-//functions
-//{
-//    #include "fieldAverage1"
-//}
-
-libs ("libcompressibleTools.so" "liblocalThermoLib.so");
+maxDeltaT       1;
 
 // ************************************************************************* //

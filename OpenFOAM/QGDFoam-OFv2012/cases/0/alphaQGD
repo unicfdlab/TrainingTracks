@@ -21,41 +21,29 @@ internalField   uniform 0.5;
 
 boundaryField
 {
-    "(inlet).*"
+    inlet
     {
         type            calculated;
         value           $internalField;
     }
-    
-    "(outlet).*"
+
+    outlet
     {
         type            calculated;
         value           $internalField;
     }
-    
-    ".*(walls).*"
+
+    walls
     {
         type            calculated;
         value           $internalField;
     }
-    
-    wedge1
+
+    sides
     {
-        type            wedge;
-        value           $internalField;
+        type    empty;
     }
-    
-    wedge2
-    {
-        type            wedge;
-        value           $internalField;
-    }
-    
-    axes
-    {
-        type            fixedValue;
-        value           $internalField;
-    }
+
 }
 
 

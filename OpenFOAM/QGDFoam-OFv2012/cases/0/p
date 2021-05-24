@@ -17,31 +17,30 @@ FoamFile
 
 dimensions      [1 -1 -2 0 0 0 0];
 
-internalField   uniform  0.7142; 
+internalField   uniform  0.7142;
 
 boundaryField
 {
-    "(inlet).*"
+    inlet
     {
-
-        type           uniformFixedValue; 
-        uniformValue   uniform 0.7142; 
+        type           fixedValue; 
         value          uniform  0.7142; 
     }
-    
-    "(outlet).*"
-    {
-           
-        type            zeroGradient;
 
-}
-    
-    ".*(walls).*"
+    outlet
     {
         type            zeroGradient;
     }
-    
-    #include "constr.include"
+
+    walls
+    {
+        type            zeroGradient;
+    }
+
+    sides
+    {
+        type    empty;
+    }
 }
 
 // ************************************************************************* //
