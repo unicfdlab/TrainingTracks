@@ -21,22 +21,27 @@ internalField   uniform 1.0;
 
 boundaryField
 {
-    "(inlet).*"
+    inlet
     {
-        type            calculated;
+        type            fixedValue;
         value           $internalField;
     }
     
-    "(outlet).*"
+    outlet
     {
-        type            calculated;
+        type            fixedValue;
         value           $internalField;
     }
     
-    ".*(walls).*"
+    walls
     {
         type            fixedValue;
         value           uniform 0.0; 
+    }
+    
+    sides
+    {
+        type    empty;
     }
     
 }

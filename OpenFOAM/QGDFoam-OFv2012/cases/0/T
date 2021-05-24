@@ -21,24 +21,26 @@ internalField   uniform 1.0;
 
 boundaryField
 {
-    "(inlet).*"
+    inlet
     {
-        type             uniformFixedValue;
-        uniformValue     uniform 1.0;
+        type             fixedValue;
         value            uniform 1.0; 
     }
-    
-    "(outlet).*"
+
+    outlet
     {
-        type		zeroGradient;
+        type             zeroGradient;
     }
-    
-    ".*(walls).*"
+
+    walls
     {
-        type		zeroGradient;
+        type             zeroGradient;
     }
-    
-    #include "constr.include"
+
+    sides
+    {
+        type    empty;
+    }
 }
 
 
