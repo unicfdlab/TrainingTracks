@@ -1,0 +1,106 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2012                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      topoSetDict;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+actions
+(
+    
+    {
+        name goodCells;
+	type cellSet;
+	action new;
+	source shapeToCell;
+	sourceInfo
+	{
+	    type hex;
+	}        
+    }
+    
+    {
+	name	badCells;
+	type	cellSet;
+	action	new;
+	source cellToCell;
+	sourceInfo
+	{
+	    set	goodCells;
+	}
+    }
+    
+    {
+	name	badCells;
+	type	cellSet;
+	action	invert;
+    }
+    
+    {
+	name	badCells;
+	type	cellSet;
+	action	add;
+	source	cellToCell;
+	sourceInfo
+	{
+	    set	badFaceAngle;
+	}
+    }
+    
+    {
+	name	veryGoodCells;
+	type	cellSet;
+	action	new;
+	source	cellToCell;
+	sourceInfo
+	    {
+		set	badCells;
+	    }
+    }
+    
+    {
+	name	veryGoodCells;
+	type	cellSet;
+	action	invert;
+    }
+    
+    {
+	name	badFaces;
+	type	faceSet;
+	action	new;
+	source	cellToFace;
+	sourceInfo
+	{
+	    set		badCells;
+	    option	all;
+	}
+    }
+    
+    {
+	name	goodFaces;
+	type	faceSet;
+	action	new;
+	source	cellToFace;
+	sourceInfo
+	{
+	    set		veryGoodCells;
+	    option	all;
+	}
+    }
+
+
+  
+                                
+);
+
+// ************************************************************************* //
