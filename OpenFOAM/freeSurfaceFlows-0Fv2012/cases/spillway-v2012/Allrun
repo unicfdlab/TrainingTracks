@@ -1,0 +1,10 @@
+#!/bin/bash
+
+blockMesh | tee -a 1-blockMesh.log 2>&1
+snappyHexMesh -overwrite | tee -a  2-snappyHexMesh.log 2>&1
+extrudeMesh | tee -a  3-extrudeMesh.log 2>&1
+rm -rf 0/
+cp -r 0.org/ 0/
+touch spillway.foam
+setFields | tee -a  4-setFields.log 2>&1
+interFoam | tee -a  5-interFoam.log 2>&1
