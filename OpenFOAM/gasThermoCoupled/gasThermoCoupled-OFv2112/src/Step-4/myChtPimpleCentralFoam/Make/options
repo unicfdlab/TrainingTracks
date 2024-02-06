@@ -31,5 +31,8 @@ EXE_LIBS = \
     -lcompressibleTurbulenceModels \
     -lmeshTools \
     -lfvOptions \
-    -lregionModels
+    -lregionModels \
+    -lsolidThermo \ 
+    -lthermoTools \ 
+    -lsampling 
     
